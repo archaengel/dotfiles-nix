@@ -88,7 +88,7 @@
     alt - p : yabai -m display --focus prev
 
     alt - return : kitty --single-instance --working-directory /Users/god
-    alt - space : yabai -m space --layout `yabai -m query --spaces | jq -r '.[0].type as $current | {layouts: ["bsp", "stack", "float"]} | { layouts: .layouts, next: (.layouts | (index($current) + 1) % 3)} | nth(.next; .layouts[])'`
+    alt - space : yabai -m space --layout `yabai -m query --spaces | jq -r 'map(select(."has-focus")) | .[0].type as $current | {layouts: ["bsp", "stack", "float"]} | { layouts: .layouts, next: (.layouts | (index($current) + 1) % 3)} | nth(.next; .layouts[])'`
   '';
 
   # Create /etc/bashrc that loads the nix-darwin environment.
