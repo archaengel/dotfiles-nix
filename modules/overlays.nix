@@ -4,7 +4,7 @@ with pkgs; {
     (import (builtins.fetchTarball {
       url =
         "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
-      sha256 = "0i9snc0dikd0as9zs3i3zqh6bzv1wfrwqcm30hisd31axmpzwp17";
+      sha256 = "1l5qa7m4xxr9kxfp9dwcc9i2qf3ncbai6nb3bsz360flgbs90ahk";
     }))
     (self: super:
       let
