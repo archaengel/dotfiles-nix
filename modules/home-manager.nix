@@ -2,16 +2,21 @@
 
 let
   isDarwin = system: (builtins.elem system pkgs.lib.platforms.darwin);
+  isAarch = system: (builtins.elem system pkgs.lib.platforms.aarch64);
+
+  # Raspberry Pi 4 isn't openGL3 compliant, which is necessary for kitty
   systemSpecificPkgs = with pkgs;
-    if ! isDarwin system then [ lxterminal ] else [ ];
-  systemSpecificProgs = if isDarwin system then {
+    if isAarch system then [ lxterminal ] else [ ];
+
+  systemSpecificProgs = if ! isAarch system then {
     kitty = {
       enable = true;
       extraConfig = builtins.readFile ./dotfiles/kitty/.config/kitty/kitty.conf;
     };
   } else
     { };
-  systemSpecificXdg = if ! isDarwin system then {
+
+  systemSpecificXdg = if isAarch system then {
     configFile.lxterminal = {
       source = ./dotfiles/lxterminal/.config/lxterminal/lxterminal.conf;
     };
