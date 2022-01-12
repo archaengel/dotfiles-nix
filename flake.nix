@@ -31,6 +31,7 @@
         ./modules/darwin.nix
         home-manager.darwinModules.home-manager
         ./modules/home-manager.nix
+        ./modules/brew.nix
       ];
       specialArgs = {
         inherit system nixpkgs inputs;
