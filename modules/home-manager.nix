@@ -39,13 +39,13 @@ in {
       };
     } // systemSpecificProgs;
 
-    home.packages = with pkgs; [ treefmt neovim-nightly ] ++ systemSpecificPkgs;
+    home.packages = with pkgs; [ treefmt ] ++ systemSpecificPkgs;
 
     xdg = {
-      configFile.nvim = {
-        source = ./dotfiles/nvim/.config/nvim;
-        recursive = true;
-      };
+      # configFile.nvim = {
+      #   source = ./dotfiles/nvim/.config/nvim;
+      #   recursive = true;
+      # };
     } // systemSpecificXdg;
 
   };
