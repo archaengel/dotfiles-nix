@@ -84,8 +84,8 @@
     alt + shift - k : yabai -m window --swap east
     alt + shift + ctrl - j : yabai -m window --space next
     alt + shift + ctrl - k : yabai -m window --space prev
-    alt - n : yabai -m display --focus next
-    alt - p : yabai -m display --focus prev
+    alt + shift - u : yabai -m display --focus next
+    alt + shift - d : yabai -m display --focus prev
 
     alt + shift - return : kitty --single-instance --working-directory /Users/god
     alt - space : yabai -m space --layout `yabai -m query --spaces | jq -r 'map(select(."has-focus")) | .[0].type as $current | {layouts: ["bsp", "stack", "float"]} | { layouts: .layouts, next: (.layouts | (index($current) + 1) % 3)} | nth(.next; .layouts[])'`
