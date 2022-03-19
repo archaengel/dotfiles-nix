@@ -2,6 +2,7 @@
 
 {
   imports = [ ./overlays.nix ];
+  nixpkgs.overlays = [inputs.neovim-nightly-overlay.overlay];
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment = {

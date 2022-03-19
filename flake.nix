@@ -16,9 +16,11 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = { self, darwin, darwin-stable, nixpkgs, home-manager, ... }@inputs: 
+  outputs = { self, darwin, darwin-stable, neovim-nightly-overlay, nixpkgs, home-manager, ... }@inputs: 
   let
     inherit (darwin.lib) darwinSystem;
     inherit (home-manager.lib) homeManagerConfiguration;
@@ -44,7 +46,10 @@
       username = "god";
       homeDirectory = "${homePrefix system}/{username}";
       extraSpecialArgs = { inherit system nixpkgs inputs; };
-      configuration.imports = [ ./modules/overlays.nix ./modules/home-manager.nix ];
+      configuration = {
+        nixpkgs.overlays = [neovim-nightly-overlay.overlay];
+        imports = [ ./modules/overlays.nix ./modules/home-manager.nix ];
+      };
     };
   };
 }
