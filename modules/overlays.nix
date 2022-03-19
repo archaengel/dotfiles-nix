@@ -4,7 +4,7 @@ with pkgs; {
     (import (builtins.fetchTarball {
       url =
         "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
-      sha256 = "sha256:1pj8ps24888a5gcv5bpg632m7ha18s1vw66s6wcn68iy8ahc7161";
+      sha256 = "23534d6cd29a6e0ebabe88eddc1991158c540f762bd4c6136428bfb1df4dfcf0";
     }))
     (self: super:
       let
@@ -20,7 +20,7 @@ with pkgs; {
             repo = "yabai";
             owner = "koekeishiya";
             rev = "master";
-            sha256 = "sha256-kMPf+g+7nMZyu2bkazhjuaZJVUiEoJrgxmxXhL/jC8M=";
+            sha256 = "sha256-SwoXH6d0blE+S5i4n0Y9Q8AJuQAAaQs+CK3y1hAQoPU=";
           };
 
           buildInputs = oldAttrs.buildInputs ++ [ self.unixtools.xxd ];
