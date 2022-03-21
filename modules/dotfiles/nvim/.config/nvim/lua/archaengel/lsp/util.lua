@@ -17,6 +17,7 @@ local function custom_attach(client)
     vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help)
     vim.keymap.set('n', '<leader>pe', vim.lsp.diagnostic.goto_prev)
     vim.keymap.set('n', '<leader>ne', vim.lsp.diagnostic.goto_next)
+    vim.keymap.set('n', '<leader>aa', vim.lsp.buf.code_action)
 
     if resolved_capabilities.document_formatting then
         nvim_exec [[
@@ -32,4 +33,7 @@ local function custom_attach(client)
     end
 end
 
-return {custom_attach = custom_attach}
+local make_capabilities = vim.lsp.protocol.make_client_capabilities
+local capabilities = require'cmp_nvim_lsp'.update_capabilities(
+                         make_capabilities())
+return {capabilities = capabilities, custom_attach = custom_attach}

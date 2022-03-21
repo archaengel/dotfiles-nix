@@ -22,13 +22,6 @@ vim.keymap.set('n', '<leader>en', function()
     telescope_builtin.find_files {cwd = "~/.config/nvim"}
 end)
 
--- compe
-vim.keymap.set('i', '<CR>', [[compe#confirm('<CR>')]],
-               {silent = true, expr = true})
-
-vim.keymap.set('i', '<C-Space>', [[compe#complete()]],
-               {silent = true, expr = true})
-
 -- lsp
 vim.keymap.set('n', '<leader>vsd', function()
     vim.lsp.diagnostic.show_line_diagnostics()
