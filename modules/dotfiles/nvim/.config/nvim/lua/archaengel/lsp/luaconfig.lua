@@ -1,4 +1,6 @@
-local custom_attach = require('archaengel.lsp.util').custom_attach
+local lsputil = require 'archaengel.lsp.util'
+local custom_attach = lsputil.custom_attach
+local capabilities = lsputil.capabilities
 
 local system_name
 if vim.fn.has("mac") == 1 then
@@ -37,6 +39,7 @@ add('~/.local/share/nvim/site/pack/packer/opt/*')
 add('~/.local/share/nvim/site/pack/packer/start/*')
 require('lspconfig').sumneko_lua.setup {
     cmd = {sumneko_binary, '-E', sumneko_root_path .. '/main.lua'},
+    capabilities = capabilities,
     on_attach = custom_attach,
     settings = {
         Lua = {
@@ -53,7 +56,8 @@ require('lspconfig').sumneko_lua.setup {
             workspace = {
                 -- Make the server aware of Neovim runtime files
                 library = libt,
-                maxPreload = 2000
+                maxPreload = 10000,
+                preloadFileSize = 10000
             },
             -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {enable = false}
