@@ -39,7 +39,10 @@ in {
       };
     } // systemSpecificProgs;
 
-    home.packages = with pkgs; [ treefmt ] ++ systemSpecificPkgs;
+    home.packages = with pkgs; [
+      treefmt
+      helix
+    ] ++ systemSpecificPkgs;
 
     xdg = {
       # configFile.nvim = {
