@@ -18,7 +18,7 @@
       irssi
       jq
       kitty
-      luajitPackages.luarocks-3_7
+      luajitPackages.luarocks
       minikube
       neovim-nightly
       nixfmt
