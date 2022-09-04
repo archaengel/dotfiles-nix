@@ -39,7 +39,7 @@ in {
       };
     } // systemSpecificProgs;
 
-    home.packages = with pkgs; [ treefmt ] ++ systemSpecificPkgs;
+    home.packages = with pkgs; [ treefmt cmake ] ++ systemSpecificPkgs;
 
     xdg = {
       # configFile.nvim = {
