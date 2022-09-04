@@ -39,7 +39,11 @@ in {
       };
     } // systemSpecificProgs;
 
-    home.packages = with pkgs; [ treefmt cmake ] ++ systemSpecificPkgs;
+    home = {
+        packages = with pkgs; [ treefmt cmake ] ++ systemSpecificPkgs;
+        stateVersion = "21.11";
+    };
+
 
     xdg = {
       # configFile.nvim = {
