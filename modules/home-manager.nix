@@ -6,7 +6,7 @@ let
 
   # Raspberry Pi 4 isn't openGL3 compliant, which is necessary for kitty
   systemSpecificPkgs = with pkgs;
-    if isAarch system then [ lxterminal ] else [ ];
+    if isAarch system then [ lxterminal ] else [ arduino-cli ];
 
   systemSpecificProgs = if ! isAarch system then {
     kitty = {
