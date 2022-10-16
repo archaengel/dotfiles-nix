@@ -40,7 +40,7 @@ in {
     } // systemSpecificProgs;
 
     home = {
-        packages = with pkgs; [ treefmt cmake ] ++ systemSpecificPkgs;
+        packages = with pkgs; [ treefmt cmake ccls ] ++ systemSpecificPkgs;
         stateVersion = "21.11";
     };
 
