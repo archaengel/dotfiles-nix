@@ -20,6 +20,7 @@
       kitty
       luajitPackages.luarocks
       minikube
+      xcode-install
       neovim-nightly
       nixfmt
       stow

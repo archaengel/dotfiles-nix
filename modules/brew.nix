@@ -1,11 +1,14 @@
 { config, pkgs, ... }: {
   homebrew = {
+    onActivation = {
+      autoUpdate = true;
+      upgrade = true;
+    };
     enable = true;
-    autoUpdate = true;
 
     global = {
       brewfile = true;
-      noLock = true;
+      lockfiles = false;
     };
 
     taps = [
