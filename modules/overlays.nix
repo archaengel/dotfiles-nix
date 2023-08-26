@@ -15,11 +15,11 @@ with pkgs; {
             repo = "yabai";
             owner = "koekeishiya";
             rev = "master";
-            sha256 = "sha256-SwoXH6d0blE+S5i4n0Y9Q8AJuQAAaQs+CK3y1hAQoPU=";
+            sha256 = "sha256-y4keN2C1DtXHRegAD6ROJHBXCG7fKih3AO7zg8N8FcE=";
           };
 
           buildInputs = oldAttrs.buildInputs ++ [ self.unixtools.xxd ];
-          nativeBuildInputs = [ buildSymlinks ];
+          nativeBuildInputs = [ installShellFiles buildSymlinks ];
         });
       })
   ];

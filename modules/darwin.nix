@@ -20,9 +20,10 @@
       kitty
       luajitPackages.luarocks
       minikube
-      xcode-install
       neovim-nightly
       nixfmt
+      qemu
+      qmk
       stow
       terraform
       terraform-ls
@@ -101,4 +102,7 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
   nixpkgs.config.allowUnfree = true;
+  nix.settings.trusted-substituters = [
+      "https://cache.nixos.org/"
+  ];
 }
