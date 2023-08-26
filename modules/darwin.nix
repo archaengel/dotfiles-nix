@@ -61,6 +61,7 @@
   programs.nix-index.enable = true;
 
   services.yabai.enable = true;
+  services.yabai.enableScriptingAddition = true;
   services.yabai.package = pkgs.yabai-nightly;
   services.yabai.config = {
     window_border = "on";
