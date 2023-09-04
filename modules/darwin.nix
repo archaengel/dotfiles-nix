@@ -1,8 +1,7 @@
 { config, inputs, nixpkgs, pkgs, stable, ... }:
 
 {
-  imports = [ ./overlays.nix ];
-  nixpkgs.overlays = [inputs.neovim-nightly-overlay.overlay];
+  imports = [./overlays.nix];
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment = {
@@ -25,6 +24,8 @@
       qemu
       qmk
       stow
+      gdb
+      haskellPackages.cabal-install
       terraform
       terraform-ls
       tmux
@@ -105,5 +106,9 @@
   nixpkgs.config.allowUnfree = true;
   nix.settings.trusted-substituters = [
       "https://cache.nixos.org/"
+      "https://cache.iog.io"
+  ];
+  nix.settings.trusted-public-keys = [
+      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
   ];
 }
