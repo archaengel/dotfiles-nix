@@ -1,26 +1,32 @@
-{ config, pkgs, ... }:
+{ config, pkgs, neovim, ... }:
 with pkgs; {
   nixpkgs.overlays = [
-    (self: super:
+    (final: prev:
       let
-        buildSymlinks = self.runCommand "build-symlinks" { } ''
+        buildSymlinks = final.runCommand "build-symlinks" { } ''
           mkdir -p $out/bin
           ln -s /usr/bin/xcrun /usr/bin/xcodebuild /usr/bin/tiffutil /usr/bin/qlmanage $out/bin
         '';
       in {
-        yabai-nightly = super.yabai.overrideAttrs (oldAttrs: {
+        yabai-nightly = prev.yabai.overrideAttrs (oldAttrs: {
           version = "master";
 
-          src = self.fetchFromGitHub {
+          src = final.fetchFromGitHub {
             repo = "yabai";
             owner = "koekeishiya";
             rev = "master";
-            sha256 = "sha256-y4keN2C1DtXHRegAD6ROJHBXCG7fKih3AO7zg8N8FcE=";
+            sha256 = "sha256-3vrW7UPO5WtxUEdhc4VsVDrTNvztwXp1ekscOqJGIQ8=";
           };
 
-          buildInputs = oldAttrs.buildInputs ++ [ self.unixtools.xxd ];
+          buildInputs = oldAttrs.buildInputs ++ [ final.unixtools.xxd ];
           nativeBuildInputs = [ installShellFiles buildSymlinks ];
         });
+
+	neovim-nightly = neovim.overrideAttrs (oldAttrs: {
+	  nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [final.liblpeg];
+	});
+
+	liblpeg = import ./packages/liblpeg-darwin.nix { inherit pkgs; };
       })
   ];
 }
