@@ -13,7 +13,6 @@
       curl
       gh
       git
-      heroku
       irssi
       jq
       kitty
