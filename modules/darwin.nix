@@ -27,6 +27,7 @@
       haskellPackages.cabal-install
       terraform
       terraform-ls
+      ihp-new
       tmux
       tree
       vim
