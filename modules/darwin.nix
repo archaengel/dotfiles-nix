@@ -11,6 +11,7 @@
       buildpack
       cairo
       curl
+      elan
       gh
       git
       irssi
