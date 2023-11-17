@@ -1,5 +1,10 @@
 { config, inputs, nixpkgs, pkgs, stable, ... }:
 
+let
+      gdk = pkgs.google-cloud-sdk.withExtraComponents( with pkgs.google-cloud-sdk.components; [
+        gke-gcloud-auth-plugin
+      ]);
+in
 {
   imports = [./overlays.nix];
   # List packages installed in system profile. To search by name, run:
@@ -16,6 +21,7 @@
       git
       irssi
       jq
+      gdk
       kitty
       luajitPackages.luarocks
       minikube
