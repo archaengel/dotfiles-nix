@@ -1,12 +1,10 @@
 { config, inputs, nixpkgs, pkgs, stable, ... }:
 
 let
-      gdk = pkgs.google-cloud-sdk.withExtraComponents( with pkgs.google-cloud-sdk.components; [
-        gke-gcloud-auth-plugin
-      ]);
-in
-{
-  imports = [./overlays.nix];
+  gdk = pkgs.google-cloud-sdk.withExtraComponents
+    (with pkgs.google-cloud-sdk.components; [ gke-gcloud-auth-plugin ]);
+in {
+  imports = [ ./overlays.nix ];
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment = {
@@ -40,6 +38,7 @@ in
       vim
       wget
       zlib
+      borders
     ];
 
     etc = {
@@ -72,9 +71,6 @@ in
   services.yabai.enableScriptingAddition = true;
   services.yabai.package = pkgs.yabai-nightly;
   services.yabai.config = {
-    window_border = "on";
-    window_border_width = 6;
-    active_window_border_color = "0xf7768eff";
     top_padding = 6;
     bottom_padding = 6;
     right_padding = 6;
@@ -85,6 +81,7 @@ in
     yabia -m space --layout bsp
     yabai -m signal --add event=window_destroyed \
       action="yabai -m window --focus last"
+    borders active_color=0xf7768eff inactive_color=0x00000000 width=5.0 2>/dev/null 1>&2 &
   '';
 
   services.skhd.enable = true;
@@ -111,11 +108,11 @@ in
   system.stateVersion = 4;
   nixpkgs.config.allowUnfree = true;
   nix.settings.trusted-substituters = [
-      "https://cache.nixos.org?priority=10"
-      "https://nix-community.cachix.org"
+    "https://cache.nixos.org?priority=10"
+    "https://nix-community.cachix.org"
   ];
   nix.settings.trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
 }

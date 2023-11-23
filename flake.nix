@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-
     darwin = {
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,36 +22,40 @@
     };
   };
 
-  outputs = { self, darwin, darwin-stable, neovim-flake, nixpkgs, home-manager, ... }@inputs: 
-  let
-    inherit (darwin.lib) darwinSystem;
-    inherit (home-manager.lib) homeManagerConfiguration;
-    isDarwin = system: (builtins.elem system nixpkgs.lib.platforms.darwin);
-    homePrefix = system: if isDarwin system then "/Users" else "/home";
-  in {
-    darwinConfigurations."1134" = darwinSystem rec {
-      system = "x86_64-darwin";
-      modules = [
-        ./modules/darwin.nix
-        home-manager.darwinModules.home-manager
-        ./modules/home-manager.nix
-        ./modules/brew.nix
-      ];
-      specialArgs = {
-        inherit system nixpkgs inputs;
-	inherit (neovim-flake.packages.x86_64-darwin) neovim;
-        stable = darwin-stable;
+  outputs = { self, darwin, darwin-stable, neovim-flake, nixpkgs, home-manager
+    , ... }@inputs:
+    let
+      inherit (darwin.lib) darwinSystem;
+      inherit (home-manager.lib) homeManagerConfiguration;
+      isDarwin = system: (builtins.elem system nixpkgs.lib.platforms.darwin);
+      homePrefix = system: if isDarwin system then "/Users" else "/home";
+    in {
+      darwinConfigurations."1134" = darwinSystem rec {
+        system = "x86_64-darwin";
+        modules = [
+          ./modules/darwin.nix
+          home-manager.darwinModules.home-manager
+          ./modules/home-manager.nix
+          ./modules/brew.nix
+        ];
+        specialArgs = {
+          inherit system nixpkgs inputs;
+          inherit (neovim-flake.packages.x86_64-darwin) neovim;
+          stable = darwin-stable;
+        };
       };
-    };
 
-    homeConfigurations.god-intel = homeManagerConfiguration rec {
-      system = "x86_64-darwin";
-      username = "god";
-      homeDirectory = "${homePrefix system}/{username}";
-      extraSpecialArgs = { inherit system nixpkgs inputs; inherit (neovim-flake.packages.x86_64-darwin) neovim; };
-      configuration = {
-        imports = [ ./modules/overlays.nix ./modules/home-manager.nix ];
+      homeConfigurations.god-intel = homeManagerConfiguration rec {
+        system = "x86_64-darwin";
+        username = "god";
+        homeDirectory = "${homePrefix system}/{username}";
+        extraSpecialArgs = {
+          inherit system nixpkgs inputs;
+          inherit (neovim-flake.packages.x86_64-darwin) neovim;
+        };
+        configuration = {
+          imports = [ ./modules/overlays.nix ./modules/home-manager.nix ];
+        };
       };
     };
-  };
 }

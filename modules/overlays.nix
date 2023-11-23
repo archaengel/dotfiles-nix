@@ -22,11 +22,13 @@ with pkgs; {
           nativeBuildInputs = [ installShellFiles buildSymlinks ];
         });
 
-	neovim-nightly = neovim.overrideAttrs (oldAttrs: {
-	  nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [final.liblpeg];
-	});
+        neovim-nightly = neovim.overrideAttrs (oldAttrs: {
+          nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ final.liblpeg ];
+        });
 
-	liblpeg = import ./packages/liblpeg-darwin.nix { inherit pkgs; };
+        liblpeg = import ./packages/liblpeg-darwin.nix { inherit pkgs; };
+
+        borders = import ./packages/borders.nix { inherit pkgs; };
       })
   ];
 }
