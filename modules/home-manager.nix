@@ -8,7 +8,7 @@ let
   systemSpecificPkgs = with pkgs;
     if isAarch system then [ lxterminal ] else [ arduino-cli ];
 
-  systemSpecificProgs = if ! isAarch system then {
+  systemSpecificProgs = if !isAarch system then {
     kitty = {
       enable = true;
       extraConfig = builtins.readFile ./dotfiles/kitty/.config/kitty/kitty.conf;
@@ -40,10 +40,9 @@ in {
     } // systemSpecificProgs;
 
     home = {
-        packages = with pkgs; [ treefmt cmake ccls ] ++ systemSpecificPkgs;
-        stateVersion = "21.11";
+      packages = with pkgs; [ treefmt cmake ccls ] ++ systemSpecificPkgs;
+      stateVersion = "21.11";
     };
-
 
     xdg = {
       # configFile.nvim = {

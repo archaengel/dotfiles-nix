@@ -19,8 +19,6 @@
       "homebrew/services"
     ];
 
-    casks = [
-      "keepassxc"
-    ];
+    casks = [ "keepassxc" ];
   };
 }
