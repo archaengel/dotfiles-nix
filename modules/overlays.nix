@@ -15,7 +15,7 @@ with pkgs; {
             repo = "yabai";
             owner = "koekeishiya";
             rev = "master";
-            sha256 = "sha256-3vrW7UPO5WtxUEdhc4VsVDrTNvztwXp1ekscOqJGIQ8=";
+            sha256 = "sha256-G7yjxhKk5Yz6qLHy8I8MMmZdVYUggGVvIW0j5kdkwlo=";
           };
 
           buildInputs = oldAttrs.buildInputs ++ [ final.unixtools.xxd ];
