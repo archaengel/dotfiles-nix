@@ -26,6 +26,16 @@ with pkgs; {
           nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ final.liblpeg ];
         });
 
+        sketchybar-nightly = prev.sketchybar.overrideAttrs (oldAttrs: {
+          version = "master";
+          src = final.fetchFromGitHub {
+            repo = "SketchyBar";
+            owner = "FelixKratz";
+            rev = "master";
+            sha256 = "sha256-6MqTyCqFv5suQgQ5a9t1mDA2njjFFgk67Kp7xO5OXoA=";
+          };
+        });
+
         liblpeg = import ./packages/liblpeg-darwin.nix { inherit pkgs; };
 
         borders = import ./packages/borders.nix { inherit pkgs; };

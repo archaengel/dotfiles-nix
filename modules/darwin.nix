@@ -39,6 +39,7 @@ in {
       wget
       zlib
       borders
+      watch
     ];
 
     etc = {
@@ -78,9 +79,12 @@ in {
     window_gap = 6;
   };
   services.yabai.extraConfig = ''
-    yabia -m space --layout bsp
+    yabai -m config debug_output on
+    yabai -m config external_bar all:30:0
+    yabai -m space --layout bsp
     yabai -m signal --add event=window_destroyed \
       action="yabai -m window --focus last"
+
     borders active_color=0xf7768eff inactive_color=0x00000000 width=5.0 2>/dev/null 1>&2 &
   '';
 
@@ -96,8 +100,54 @@ in {
     alt + shift - u : yabai -m display --focus next
     alt + shift - d : yabai -m display --focus prev
 
+    alt - 0x12 : yabai -m space --focus 1 2>/dev/null
+    alt - 0x13 : yabai -m space --focus 2 2>/dev/null
+    alt - 0x14 : yabai -m space --focus 3 2>/dev/null
+    alt - 0x15 : yabai -m space --focus 4 2>/dev/null
+    alt - 0x17 : yabai -m space --focus 5 2>/dev/null
+    alt - 0x16 : yabai -m space --focus 6 2>/dev/null
+    alt - 0x1A : yabai -m space --focus 7 2>/dev/null
+    alt - 0x1C : yabai -m space --focus 8 2>/dev/null
+    alt - 0x19 : yabai -m space --focus 9 2>/dev/null
+
     alt + shift - return : kitty --single-instance --working-directory /Users/god
     alt - space : yabai -m space --layout `yabai -m query --spaces | jq -r 'map(select(."has-focus")) | .[0].type as $current | {layouts: ["bsp", "stack", "float"]} | { layouts: .layouts, next: (.layouts | (index($current) + 1) % 3)} | nth(.next; .layouts[])'`
+  '';
+
+  services.sketchybar.enable = true;
+  services.sketchybar.package = pkgs.sketchybar-nightly;
+  services.sketchybar.config = ''
+    sketchybar --bar height=24 \
+      blur_radius=20 \
+      position=top \
+      y_offset=6 \
+      padding_left=2 \
+      padding_right=2 \
+      corner_radius=10 \
+      margin=6 \
+      color=0x44000000 \
+      shadow=on
+
+    sketchybar --default icon.font="JetBrainsMono NF:Bold:14.0"
+
+    spaces=$(seq 9)
+    space_args=()
+
+    for i in ''${spaces[@]}; do
+        sid=$((i))
+        space_args+=(
+            --add space space.$sid left \
+            --set space.$sid icon=$sid \
+                  associated_space=$sid \
+                  icon.padding_right=6 \
+                  icon.highlight_color=0xff768eff \
+                  click_script="yabai -m space --focus $sid"
+        )
+    done
+
+    sketchybar "''${space_args[@]}"
+
+    sketchybar --update
   '';
 
   # Create /etc/bashrc that loads the nix-darwin environment.
@@ -106,6 +156,7 @@ in {
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
+  system.defaults.NSGlobalDomain._HIHideMenuBar = true;
   nixpkgs.config.allowUnfree = true;
   nix.settings.trusted-substituters = [
     "https://cache.nixos.org?priority=10"
