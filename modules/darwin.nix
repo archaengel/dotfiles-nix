@@ -17,6 +17,7 @@ in {
       elan
       gh
       git
+      delta
       irssi
       jq
       gdk
