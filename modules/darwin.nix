@@ -30,6 +30,7 @@ in {
       qmk
       stow
       openscad
+      unison-ucm
       gdb
       haskellPackages.cabal-install
       terraform
