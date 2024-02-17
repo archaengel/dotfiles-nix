@@ -29,6 +29,7 @@ in {
       qemu
       qmk
       stow
+      openscad
       gdb
       haskellPackages.cabal-install
       terraform
