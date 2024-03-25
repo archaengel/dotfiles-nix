@@ -26,6 +26,8 @@ in {
       minikube
       neovim-nightly
       nixfmt
+      fd
+      ripgrep
       qemu
       qmk
       stow
