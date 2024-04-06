@@ -32,6 +32,10 @@ in {
 
   home-manager.users.god = {
     programs = {
+      direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+      };
       home-manager.enable = true;
       tmux = {
         enable = true;
