@@ -23,6 +23,7 @@ in {
       gdk
       kitty
       luajitPackages.luarocks
+      lua51Packages.lua
       minikube
       neovim-nightly
       nixfmt
