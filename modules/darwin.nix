@@ -34,6 +34,7 @@ in {
       stow
       openscad
       unison-ucm
+      python3
       gdb
       haskellPackages.cabal-install
       terraform
