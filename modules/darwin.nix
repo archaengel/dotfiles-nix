@@ -29,12 +29,17 @@ in {
       nixfmt
       fd
       ripgrep
+      rust-analyzer
       qemu
-      qmk
+      nixd
       stow
       openscad
       unison-ucm
       python3
+      python3Packages.mypy
+      python3Packages.jedi-language-server
+      py-spy
+      poetry
       gdb
       haskellPackages.cabal-install
       terraform
@@ -43,6 +48,7 @@ in {
       btop
       tmux
       tree
+      yarn
       cachix
       vim
       wget
