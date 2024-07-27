@@ -32,6 +32,15 @@ with pkgs; {
           };
         });
 
+        unison-ucm = prev.unison-ucm.overrideAttrs (oldAttrs: {
+          version = "0.5.25";
+          src = fetchurl {
+            url =
+              "https://github.com/unisonweb/unison/releases/download/release/0.5.25/ucm-macos.tar.gz";
+            hash = "sha256-Tc9XYWCap3N9KX5k6M83L1efwz2cG3bmv5tyY4zuFPQ=";
+          };
+        });
+
         liblpeg = import ./packages/liblpeg-darwin.nix { inherit pkgs; };
 
         borders = import ./packages/borders.nix { inherit pkgs; };
