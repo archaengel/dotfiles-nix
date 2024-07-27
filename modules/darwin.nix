@@ -25,7 +25,6 @@ in {
       luajitPackages.luarocks
       lua51Packages.lua
       minikube
-      neovim-nightly
       nixfmt
       fd
       ripgrep
@@ -41,9 +40,8 @@ in {
       py-spy
       poetry
       gdb
+      neovim
       haskellPackages.cabal-install
-      terraform
-      terraform-ls
       ihp-new
       btop
       tmux
@@ -71,7 +69,7 @@ in {
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.latest;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
