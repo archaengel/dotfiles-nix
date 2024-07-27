@@ -1,4 +1,4 @@
-{ config, pkgs, neovim, ... }:
+{ config, pkgs, ... }:
 with pkgs; {
   nixpkgs.overlays = [
     (final: prev:
@@ -14,7 +14,7 @@ with pkgs; {
           src = final.fetchFromGitHub {
             repo = "yabai";
             owner = "koekeishiya";
-            rev = "master";
+            rev = "9fffe016ea91d221cb60891f1bb9b39fae738808";
             sha256 = "sha256-G7yjxhKk5Yz6qLHy8I8MMmZdVYUggGVvIW0j5kdkwlo=";
           };
 
@@ -22,16 +22,12 @@ with pkgs; {
           nativeBuildInputs = [ installShellFiles buildSymlinks ];
         });
 
-        neovim-nightly = neovim.overrideAttrs (oldAttrs: {
-          nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ final.liblpeg ];
-        });
-
         sketchybar-nightly = prev.sketchybar.overrideAttrs (oldAttrs: {
           version = "master";
           src = final.fetchFromGitHub {
             repo = "SketchyBar";
             owner = "FelixKratz";
-            rev = "master";
+            rev = "1fbf8559302f4e69e015f08a76e05ea84a93cef8";
             sha256 = "sha256-6MqTyCqFv5suQgQ5a9t1mDA2njjFFgk67Kp7xO5OXoA=";
           };
         });

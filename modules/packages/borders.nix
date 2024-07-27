@@ -6,8 +6,8 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
   src = pkgs.fetchFromGitHub {
     repo = "JankyBorders";
     owner = "FelixKratz";
-    rev = "main";
-    sha256 = "sha256-mpaEeoxYkrk4PjjVbRd9h7syQaxVTdja/vFGkZMbq+8=";
+    rev = "29c657b50c83d73b1f2806fb981fa48fa4929ecb";
+    sha256 = "sha256-CgXd5pQFR4MW88uDXcBh9D+HCzwMRRvLwmastrOhOSM=";
   };
 
   buildInputs = with pkgs.darwin.apple_sdk.frameworks; [

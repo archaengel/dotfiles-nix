@@ -25,24 +25,28 @@ in {
       luajitPackages.luarocks
       lua51Packages.lua
       minikube
-      neovim-nightly
       nixfmt
       fd
       ripgrep
+      rust-analyzer
       qemu
-      qmk
+      nixd
       stow
       openscad
       unison-ucm
       python3
+      python3Packages.mypy
+      python3Packages.jedi-language-server
+      py-spy
+      poetry
       gdb
+      neovim
       haskellPackages.cabal-install
-      terraform
-      terraform-ls
       ihp-new
       btop
       tmux
       tree
+      yarn
       cachix
       vim
       wget
@@ -65,7 +69,7 @@ in {
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.latest;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
