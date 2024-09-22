@@ -26,6 +26,9 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Borders around active windows";
-    platforms = [ "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 })

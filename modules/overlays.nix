@@ -1,13 +1,16 @@
 { config, pkgs, ... }:
-with pkgs; {
+with pkgs;
+{
   nixpkgs.overlays = [
-    (final: prev:
+    (
+      final: prev:
       let
         buildSymlinks = final.runCommand "build-symlinks" { } ''
           mkdir -p $out/bin
           ln -s /usr/bin/xcrun /usr/bin/xcodebuild /usr/bin/tiffutil /usr/bin/qlmanage $out/bin
         '';
-      in {
+      in
+      {
         yabai-nightly = prev.yabai.overrideAttrs (oldAttrs: {
           version = "master";
 
@@ -19,7 +22,10 @@ with pkgs; {
           };
 
           buildInputs = oldAttrs.buildInputs ++ [ final.unixtools.xxd ];
-          nativeBuildInputs = [ installShellFiles buildSymlinks ];
+          nativeBuildInputs = [
+            installShellFiles
+            buildSymlinks
+          ];
         });
 
         sketchybar-nightly = prev.sketchybar.overrideAttrs (oldAttrs: {
@@ -35,8 +41,7 @@ with pkgs; {
         unison-ucm = prev.unison-ucm.overrideAttrs (oldAttrs: {
           version = "0.5.25";
           src = fetchurl {
-            url =
-              "https://github.com/unisonweb/unison/releases/download/release/0.5.25/ucm-macos.tar.gz";
+            url = "https://github.com/unisonweb/unison/releases/download/release/0.5.25/ucm-macos.tar.gz";
             hash = "sha256-Tc9XYWCap3N9KX5k6M83L1efwz2cG3bmv5tyY4zuFPQ=";
           };
         });
@@ -44,6 +49,7 @@ with pkgs; {
         liblpeg = import ./packages/liblpeg-darwin.nix { inherit pkgs; };
 
         borders = import ./packages/borders.nix { inherit pkgs; };
-      })
+      }
+    )
   ];
 }

@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   homebrew = {
     onActivation = {
       autoUpdate = true;

@@ -17,6 +17,9 @@ pkgs.stdenv.mkDerivation {
     homepage = "http://www.inf.puc-rio.br/~roberto/lpeg.html";
     description = "Parsing Expression Grammars For Lua";
     license.fullName = "MIT/X11";
-    platforms = [ "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
   };
 }
