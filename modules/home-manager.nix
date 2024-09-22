@@ -1,29 +1,43 @@
-{ config, nixkpkgs, pkgs, system, ... }:
+{
+  config,
+  nixkpkgs,
+  pkgs,
+  system,
+  ...
+}:
 
 let
   isDarwin = system: (builtins.elem system pkgs.lib.platforms.darwin);
   isAarch = system: (builtins.elem system pkgs.lib.platforms.aarch64);
 
   # Raspberry Pi 4 isn't openGL3 compliant, which is necessary for kitty
-  systemSpecificPkgs = with pkgs;
-    if isAarch system then [ lxterminal ] else [ arduino-cli ];
+  systemSpecificPkgs = with pkgs; if isAarch system then [ lxterminal ] else [ arduino-cli ];
 
-  systemSpecificProgs = if !isAarch system then {
-    kitty = {
-      enable = true;
-      extraConfig = builtins.readFile ./dotfiles/kitty/.config/kitty/kitty.conf;
-    };
-  } else
-    { };
+  systemSpecificProgs =
+    if !isAarch system then
+      {
+        kitty = {
+          enable = true;
+          extraConfig = builtins.readFile ./dotfiles/kitty/.config/kitty/kitty.conf;
+        };
+      }
+    else
+      { };
 
-  systemSpecificXdg = if isAarch system then {
-    configFile.lxterminal = {
-      source = ./dotfiles/lxterminal/.config/lxterminal/lxterminal.conf;
-    };
-  } else
-    { };
-in {
-  users.users.god = { home = "/Users/god"; };
+  systemSpecificXdg =
+    if isAarch system then
+      {
+        configFile.lxterminal = {
+          source = ./dotfiles/lxterminal/.config/lxterminal/lxterminal.conf;
+        };
+      }
+    else
+      { };
+in
+{
+  users.users.god = {
+    home = "/Users/god";
+  };
 
   home-manager = {
     useUserPackages = true;
@@ -44,7 +58,14 @@ in {
     } // systemSpecificProgs;
 
     home = {
-      packages = with pkgs; [ treefmt cmake ccls ] ++ systemSpecificPkgs;
+      packages =
+        with pkgs;
+        [
+          treefmt
+          cmake
+          ccls
+        ]
+        ++ systemSpecificPkgs;
       stateVersion = "21.11";
     };
 

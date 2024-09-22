@@ -19,14 +19,23 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = { self, darwin, darwin-stable, neovim-nightly-overlay, nixpkgs
-    , home-manager, ... }@inputs:
+  outputs =
+    {
+      self,
+      darwin,
+      darwin-stable,
+      neovim-nightly-overlay,
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
     let
       inherit (darwin.lib) darwinSystem;
       inherit (home-manager.lib) homeManagerConfiguration;
       isDarwin = system: (builtins.elem system nixpkgs.lib.platforms.darwin);
       homePrefix = system: if isDarwin system then "/Users" else "/home";
-    in {
+    in
+    {
       darwinConfigurations."1134" = darwinSystem rec {
         system = "x86_64-darwin";
         modules = [
@@ -45,9 +54,14 @@
         system = "x86_64-darwin";
         username = "god";
         homeDirectory = "${homePrefix system}/{username}";
-        extraSpecialArgs = { inherit system nixpkgs inputs; };
+        extraSpecialArgs = {
+          inherit system nixpkgs inputs;
+        };
         configuration = {
-          imports = [ ./modules/overlays.nix ./modules/home-manager.nix ];
+          imports = [
+            ./modules/overlays.nix
+            ./modules/home-manager.nix
+          ];
           nixpkgs.overlays = [ neovim-nightly-overlay ];
         };
       };

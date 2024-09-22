@@ -1,9 +1,18 @@
-{ config, inputs, nixpkgs, pkgs, stable, ... }:
+{
+  config,
+  inputs,
+  nixpkgs,
+  pkgs,
+  stable,
+  ...
+}:
 
 let
-  gdk = pkgs.google-cloud-sdk.withExtraComponents
-    (with pkgs.google-cloud-sdk.components; [ gke-gcloud-auth-plugin ]);
-in {
+  gdk = pkgs.google-cloud-sdk.withExtraComponents (
+    with pkgs.google-cloud-sdk.components; [ gke-gcloud-auth-plugin ]
+  );
+in
+{
   imports = [ ./overlays.nix ];
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -11,48 +20,50 @@ in {
     systemPackages = with pkgs; [
       bat
       boost
+      borders
+      btop
       buildpack
+      cachix
       cairo
       curl
+      delta
       elan
+      fd
+      gdb
+      gdk
       gh
       git
-      delta
-      irssi
-      jq
-      gdk
-      kitty
-      luajitPackages.luarocks
-      lua51Packages.lua
-      minikube
-      nixfmt
-      fd
-      ripgrep
-      rust-analyzer
-      qemu
-      nixd
-      stow
-      openscad
-      unison-ucm
-      python3
-      python3Packages.mypy
-      python3Packages.jedi-language-server
-      py-spy
-      poetry
-      gdb
-      neovim
       haskellPackages.cabal-install
       ihp-new
-      btop
+      irssi
+      jq
+      kitty
+      lua51Packages.lua
+      luajitPackages.luarocks
+      minikube
+      neovim
+      nixd
+      nixfmt-rfc-style
+      openscad
+      poetry
+      py-spy
+      python3
+      python3Packages.jedi-language-server
+      python3Packages.mypy
+      qemu
+      ripgrep
+      rust-analyzer
+      stow
+      texliveMedium
       tmux
       tree
-      yarn
-      cachix
+      unison-ucm
       vim
-      wget
-      zlib
-      borders
       watch
+      wget
+      yarn
+      zathura
+      zlib
     ];
 
     etc = {
@@ -73,10 +84,13 @@ in {
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    nixPath = (builtins.map (source: {
-      "${source}" = "/etc/${config.environment.etc.${source}.target}";
-    }) [ "home-manager" "nixpkgs" "stable" ])
-      ++ [{ darwin-config = "$HOME/.nixpkgs/modules/darwin.nix"; }];
+    nixPath =
+      (builtins.map (source: { "${source}" = "/etc/${config.environment.etc.${source}.target}"; }) [
+        "home-manager"
+        "nixpkgs"
+        "stable"
+      ])
+      ++ [ { darwin-config = "$HOME/.nixpkgs/modules/darwin.nix"; } ];
   };
 
   programs.nix-index.enable = true;
@@ -159,6 +173,10 @@ in {
     done
 
     sketchybar "''${space_args[@]}"
+
+    sketchybar --add alias "Control Center,Clock" right \
+               --add alias "Control Center,WiFi" right \
+               --add alias "Control Center,Battery" right
 
     sketchybar --update
   '';
