@@ -117,15 +117,19 @@ in
 
   services.skhd.enable = true;
   services.skhd.skhdConfig = ''
-    alt - j : yabai -m window --focus next &> /dev/null || yabai -m window --focus stack.next
-    alt - k : yabai -m window --focus prev &> /dev/null || yabai -m window --focus stack.prev
+    alt - h : yabai -m window --focus west &> /dev/null \
+        || yabai -m window --focus stack.prev &> /dev/null || yabai -m display --focus west
+    alt - j : yabai -m window --focus south &> /dev/null \
+        || yabai -m window --focus stack.prev &> /dev/null || yabai -m display --focus south
+    alt - k : yabai -m window --focus north &> /dev/null \
+        || yabai -m window --focus stack.next &> /dev/null || yabai -m display --focus north
+    alt - l : yabai -m window --focus east &> /dev/null \
+        || yabai -m window --focus stack.next &> /dev/null || yabai -m dipslay --focus east
 
     alt + shift - j : yabai -m window --swap west
     alt + shift - k : yabai -m window --swap east
     alt + shift + ctrl - j : yabai -m window --space next
     alt + shift + ctrl - k : yabai -m window --space prev
-    alt + shift - u : yabai -m display --focus next
-    alt + shift - d : yabai -m display --focus prev
 
     alt - 0x12 : yabai -m space --focus 1 2>/dev/null
     alt - 0x13 : yabai -m space --focus 2 2>/dev/null
