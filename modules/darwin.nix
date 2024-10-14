@@ -180,7 +180,8 @@ in
 
     sketchybar --add alias "Control Center,Clock" right \
                --add alias "Control Center,WiFi" right \
-               --add alias "Control Center,Battery" right
+               --add alias "Control Center,Battery" right \
+               --add alias "Control Center,Sound" right
 
     sketchybar --update
   '';
