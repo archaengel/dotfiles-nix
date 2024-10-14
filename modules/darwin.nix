@@ -181,7 +181,22 @@ in
     sketchybar --add alias "Control Center,Clock" right \
                --add alias "Control Center,WiFi" right \
                --add alias "Control Center,Battery" right \
-               --add alias "Control Center,Sound" right
+               --add alias "Control Center,Sound" right \
+               --set "Control Center,Sound" \
+                      click_script="sketchybar -m --set \"\$NAME\" popup.drawing=toggle" \
+                      popup.blur_radius=7 \
+                      popup.background.corner_radius=5 \
+                      popup.background.color=0x44000000 \
+               --add slider volume.slider popup."Control Center,Sound" 100 \
+               --set volume.slider \
+                      background.padding_left=5 \
+                      background.padding_right=5 \
+                      slider.background.height=5 \
+                      slider.background.corner_radius=5 \
+                      slider.background.color=0x66000000 \
+                      slider.highlight_color=0xccffffff \
+                      slider.percentage=$(osascript -e "output volume of (get volume settings)") \
+                      click_script="osascript -e \"set volume output volume \$PERCENTAGE\""
 
     sketchybar --update
   '';
