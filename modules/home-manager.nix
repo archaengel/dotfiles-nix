@@ -65,6 +65,9 @@ in
           rkdeveloptool
           cmake
           ccls
+          emacs
+          zig
+          zls
         ]
         ++ systemSpecificPkgs;
       stateVersion = "21.11";
