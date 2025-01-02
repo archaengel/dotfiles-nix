@@ -13,7 +13,10 @@ let
   );
 in
 {
-  imports = [ ./overlays.nix ];
+  imports = [
+    ./overlays.nix
+    ./skhd.nix
+  ];
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment = {
@@ -113,36 +116,6 @@ in
       action="yabai -m window --focus last"
 
     borders active_color=0xf7768eff inactive_color=0x00000000 width=5.0 2>/dev/null 1>&2 &
-  '';
-
-  services.skhd.enable = true;
-  services.skhd.skhdConfig = ''
-    alt - h : yabai -m window --focus west &> /dev/null \
-        || yabai -m window --focus stack.prev &> /dev/null || yabai -m display --focus west
-    alt - j : yabai -m window --focus south &> /dev/null \
-        || yabai -m window --focus stack.prev &> /dev/null || yabai -m display --focus south
-    alt - k : yabai -m window --focus north &> /dev/null \
-        || yabai -m window --focus stack.next &> /dev/null || yabai -m display --focus north
-    alt - l : yabai -m window --focus east &> /dev/null \
-        || yabai -m window --focus stack.next &> /dev/null || yabai -m dipslay --focus east
-
-    alt + shift - j : yabai -m window --swap west
-    alt + shift - k : yabai -m window --swap east
-    alt + shift + ctrl - j : yabai -m window --space next
-    alt + shift + ctrl - k : yabai -m window --space prev
-
-    alt - 0x12 : yabai -m space --focus 1 2>/dev/null
-    alt - 0x13 : yabai -m space --focus 2 2>/dev/null
-    alt - 0x14 : yabai -m space --focus 3 2>/dev/null
-    alt - 0x15 : yabai -m space --focus 4 2>/dev/null
-    alt - 0x17 : yabai -m space --focus 5 2>/dev/null
-    alt - 0x16 : yabai -m space --focus 6 2>/dev/null
-    alt - 0x1A : yabai -m space --focus 7 2>/dev/null
-    alt - 0x1C : yabai -m space --focus 8 2>/dev/null
-    alt - 0x19 : yabai -m space --focus 9 2>/dev/null
-
-    alt + shift - return : kitty --single-instance --working-directory /Users/god
-    alt - space : yabai -m space --layout `yabai -m query --spaces | jq -r 'map(select(."has-focus")) | .[0].type as $current | {layouts: ["bsp", "stack", "float"]} | { layouts: .layouts, next: (.layouts | (index($current) + 1) % 3)} | nth(.next; .layouts[])'`
   '';
 
   services.sketchybar.enable = true;
