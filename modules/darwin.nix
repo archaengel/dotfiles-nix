@@ -2,6 +2,7 @@
   config,
   inputs,
   nixpkgs,
+  pkgs-unstable,
   pkgs,
   stable,
   ...
@@ -60,7 +61,7 @@ in
       texliveMedium
       tmux
       tree
-      unison-ucm
+      pkgs-unstable.unison-ucm
       vim
       watch
       wget
