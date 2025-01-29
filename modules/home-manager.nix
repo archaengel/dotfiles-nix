@@ -11,7 +11,15 @@ let
   isAarch = system: (builtins.elem system pkgs.lib.platforms.aarch64);
 
   # Raspberry Pi 4 isn't openGL3 compliant, which is necessary for kitty
-  systemSpecificPkgs = with pkgs; if isAarch system then [ lxterminal ] else [ arduino-cli ];
+  systemSpecificPkgs =
+    with pkgs;
+    if isAarch system then
+      [ lxterminal ]
+    else
+      [
+        arduino-cli
+        unison-ucm
+      ];
 
   systemSpecificProgs =
     if !isAarch system then
