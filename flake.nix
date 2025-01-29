@@ -3,7 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+    unison-lang = {
+      url = "github:ceedubs/unison-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     darwin = {
       url = "github:lnl7/nix-darwin/master";
@@ -27,8 +31,8 @@
       darwin-stable,
       neovim-nightly-overlay,
       nixpkgs,
-      nixpkgs-unstable,
       home-manager,
+      unison-lang,
       ...
     }@inputs:
     let
@@ -45,10 +49,10 @@
           home-manager.darwinModules.home-manager
           ./modules/home-manager.nix
           ./modules/brew.nix
+          { nixpkgs.overlays = [ unison-lang.overlay ]; }
         ];
         specialArgs = {
           inherit system nixpkgs inputs;
-          pkgs-unstable = import nixpkgs-unstable { inherit system; };
           stable = darwin-stable;
         };
       };
