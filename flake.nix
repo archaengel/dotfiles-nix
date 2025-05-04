@@ -21,7 +21,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    dotfiles = {
+      url = "github:archaengel/dotfiles";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -29,7 +32,6 @@
       self,
       darwin,
       darwin-stable,
-      neovim-nightly-overlay,
       nixpkgs,
       home-manager,
       unison-lang,
@@ -69,7 +71,6 @@
             ./modules/overlays.nix
             ./modules/home-manager.nix
           ];
-          nixpkgs.overlays = [ neovim-nightly-overlay ];
         };
       };
     };

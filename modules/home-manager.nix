@@ -2,6 +2,7 @@
   config,
   nixkpkgs,
   pkgs,
+  inputs,
   system,
   ...
 }:
@@ -76,6 +77,7 @@ in
           emacs
           zig
           zls
+	  inputs.dotfiles.packages.${pkgs.system}.nvim
         ]
         ++ systemSpecificPkgs;
       stateVersion = "21.11";
