@@ -71,7 +71,6 @@ in
         with pkgs;
         [
           treefmt
-          rkdeveloptool
           cmake
           ccls
           emacs

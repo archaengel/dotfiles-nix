@@ -49,7 +49,6 @@ in
       nixfmt-rfc-style
       openscad
       poetry
-      py-spy
       python3
       python3Packages.jedi-language-server
       python3Packages.mypy
@@ -79,9 +78,8 @@ in
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
   # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
   nix = {
+    enable = true;
     package = pkgs.nixVersions.latest;
     extraOptions = ''
       experimental-features = nix-command flakes
@@ -99,7 +97,6 @@ in
 
   services.yabai.enable = true;
   services.yabai.enableScriptingAddition = true;
-  services.yabai.package = pkgs.yabai-nightly;
   services.yabai.config = {
     top_padding = 6;
     bottom_padding = 6;
