@@ -8,7 +8,6 @@
 }:
 
 let
-  isDarwin = system: (builtins.elem system pkgs.lib.platforms.darwin);
   isAarch = system: (builtins.elem system pkgs.lib.platforms.aarch64);
 
   # Raspberry Pi 4 isn't openGL3 compliant, which is necessary for kitty
@@ -22,12 +21,6 @@ let
         unison-ucm
       ];
 
-  systemSpecificProgs =
-    if !isAarch system then
-      { }
-    else
-      { };
-
   systemSpecificXdg =
     if isAarch system then
       {
@@ -39,6 +32,10 @@ let
       { };
 in
 {
+  imports = [
+    ./home/jujutsu.nix
+  ];
+
   users.users.god = {
     home = "/Users/god";
   };
@@ -59,30 +56,26 @@ in
         enable = true;
         extraConfig = builtins.readFile ./dotfiles/tmux/.tmux.conf;
       };
-    } // systemSpecificProgs;
+    };
 
     home = {
       packages =
         with pkgs;
         [
-          treefmt
-          cmake
           ccls
+          cmake
+          delta
           emacs
+          inputs.dotfiles.packages.${pkgs.system}.nvim
+          treefmt
           zig
           zls
-	  inputs.dotfiles.packages.${pkgs.system}.nvim
         ]
         ++ systemSpecificPkgs;
       stateVersion = "21.11";
     };
 
-    xdg = {
-      # configFile.nvim = {
-      #   source = ./dotfiles/nvim/.config/nvim;
-      #   recursive = true;
-      # };
-    } // systemSpecificXdg;
+    xdg = systemSpecificXdg;
 
   };
 }
