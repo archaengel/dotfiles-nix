@@ -2,6 +2,7 @@
   config,
   nixkpkgs,
   pkgs,
+  inputs,
   system,
   ...
 }:
@@ -23,12 +24,7 @@ let
 
   systemSpecificProgs =
     if !isAarch system then
-      {
-        kitty = {
-          enable = true;
-          extraConfig = builtins.readFile ./dotfiles/kitty/.config/kitty/kitty.conf;
-        };
-      }
+      { }
     else
       { };
 
@@ -70,12 +66,12 @@ in
         with pkgs;
         [
           treefmt
-          rkdeveloptool
           cmake
           ccls
           emacs
           zig
           zls
+	  inputs.dotfiles.packages.${pkgs.system}.nvim
         ]
         ++ systemSpecificPkgs;
       stateVersion = "21.11";
