@@ -51,10 +51,16 @@
           home-manager.darwinModules.home-manager
           ./modules/home-manager.nix
           ./modules/brew.nix
-          { nixpkgs.overlays = [ unison-lang.overlay ]; }
+          {
+            nixpkgs.overlays = [ unison-lang.overlay ];
+            home-manager.extraSpecialArgs = {
+              username = "god";
+            };
+          }
         ];
         specialArgs = {
           inherit system nixpkgs inputs;
+          username = "god";
           stable = darwin-stable;
         };
       };
@@ -62,9 +68,14 @@
       homeConfigurations.god-intel = homeManagerConfiguration rec {
         system = "x86_64-darwin";
         username = "god";
-        homeDirectory = "${homePrefix system}/{username}";
+        homeDirectory = "${homePrefix system}/${username}";
         extraSpecialArgs = {
-          inherit system nixpkgs inputs;
+          inherit
+            system
+            nixpkgs
+            inputs
+            username
+            ;
         };
         configuration = {
           imports = [

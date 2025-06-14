@@ -3,6 +3,7 @@
   nixkpkgs,
   pkgs,
   inputs,
+  username,
   system,
   ...
 }:
@@ -32,10 +33,6 @@ let
       { };
 in
 {
-  imports = [
-    ./home/jujutsu.nix
-  ];
-
   users.users.god = {
     home = "/Users/god";
   };
@@ -45,37 +42,43 @@ in
     useGlobalPkgs = true;
   };
 
-  home-manager.users.god = {
-    programs = {
-      direnv = {
-        enable = true;
-        nix-direnv.enable = true;
+  home-manager.users.god =
+    { username, ... }:
+    {
+      imports = [
+        ./home/jujutsu.nix
+      ];
+
+      programs = {
+        direnv = {
+          enable = true;
+          nix-direnv.enable = true;
+        };
+        home-manager.enable = true;
+        tmux = {
+          enable = true;
+          extraConfig = builtins.readFile ./dotfiles/tmux/.tmux.conf;
+        };
       };
-      home-manager.enable = true;
-      tmux = {
-        enable = true;
-        extraConfig = builtins.readFile ./dotfiles/tmux/.tmux.conf;
+
+      home = {
+        packages =
+          with pkgs;
+          [
+            ccls
+            cmake
+            delta
+            emacs
+            inputs.dotfiles.packages.${pkgs.system}.nvim
+            treefmt
+            zig
+            zls
+          ]
+          ++ systemSpecificPkgs;
+        stateVersion = "21.11";
       };
+
+      xdg = systemSpecificXdg;
+
     };
-
-    home = {
-      packages =
-        with pkgs;
-        [
-          ccls
-          cmake
-          delta
-          emacs
-          inputs.dotfiles.packages.${pkgs.system}.nvim
-          treefmt
-          zig
-          zls
-        ]
-        ++ systemSpecificPkgs;
-      stateVersion = "21.11";
-    };
-
-    xdg = systemSpecificXdg;
-
-  };
 }
