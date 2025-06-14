@@ -24,12 +24,7 @@ let
 
   systemSpecificProgs =
     if !isAarch system then
-      {
-        kitty = {
-          enable = true;
-          extraConfig = builtins.readFile ./dotfiles/kitty/.config/kitty/kitty.conf;
-        };
-      }
+      { }
     else
       { };
 
