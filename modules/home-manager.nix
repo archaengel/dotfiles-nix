@@ -108,6 +108,16 @@ in
             src = pkgs.zsh-powerlevel10k;
             file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
           }
+          {
+            name = "jj_vcs";
+            src = pkgs.lib.fileset.toSource {
+              root = ./home;
+              fileset = pkgs.lib.fileset.unions [
+                ./home/jj_vcs.zsh
+              ];
+            };
+            file = "jj_vcs.zsh";
+          }
         ];
       };
 
