@@ -80,5 +80,36 @@ in
 
       xdg = systemSpecificXdg;
 
+      programs.zsh = {
+        defaultKeymap = "viins";
+        enable = true;
+        syntaxHighlighting.enable = true;
+        history = {
+          ignoreDups = true;
+          ignoreSpace = true;
+          share = true;
+        };
+        initContent =
+          let
+            instantPrompt = pkgs.lib.mkOrder 500 ''
+              if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+                source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+              fi
+            '';
+            importP10k = pkgs.lib.mkOrder 1000 "[[ ! -f ${./p10k.zsh} ]] || source ${./p10k.zsh}";
+          in
+          pkgs.lib.mkMerge [
+            instantPrompt
+            importP10k
+          ];
+        plugins = [
+          {
+            name = "powerlevel10k";
+            src = pkgs.zsh-powerlevel10k;
+            file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+          }
+        ];
+      };
+
     };
 }
