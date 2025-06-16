@@ -62,6 +62,9 @@ in
       };
 
       home = {
+        sessionVariables = {
+          EDITOR = "nvim";
+        };
         packages =
           with pkgs;
           [
