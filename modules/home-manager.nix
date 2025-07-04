@@ -112,15 +112,20 @@ in
             file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
           }
           {
-            name = "jj_vcs";
-            src = pkgs.lib.fileset.toSource {
-              root = ./home;
-              fileset = pkgs.lib.fileset.unions [
-                ./home/jj_vcs.zsh
-              ];
-            };
-            file = "jj_vcs.zsh";
+            name = "zsh-jj";
+            src = pkgs.zsh-jj;
+            file = "share/zsh-jj/zsh-jj.plugin.zsh";
           }
+          #{
+          #name = "jj_vcs";
+          #src = pkgs.lib.fileset.toSource {
+          #root = ./home;
+          #fileset = pkgs.lib.fileset.unions [
+          #./home/jj_vcs.zsh
+          #];
+          #};
+          #file = "jj_vcs.zsh";
+          #}
         ];
       };
 
