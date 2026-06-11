@@ -18,17 +18,17 @@ in
     ./overlays.nix
     ./skhd.nix
   ];
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
+  fonts.packages = [
+    pkgs.maple-mono.NL-NF
+  ];
+
   environment = {
     systemPackages = with pkgs; [
       bat
       boost
       borders
       btop
-      buildpack
       cachix
-      cairo
       curl
       delta
       elan
@@ -37,34 +37,25 @@ in
       gdk
       gh
       git
-      haskellPackages.cabal-install
-      ihp-new
       irssi
       jq
-      kitty
       lua51Packages.lua
       luajitPackages.luarocks
-      minikube
       neovim
       nixd
       nixfmt-rfc-style
       openscad
-      poetry
       python3
-      python3Packages.jedi-language-server
-      python3Packages.mypy
       qemu
       radicle-node
       ripgrep
       rust-analyzer
       stow
-      texliveMedium
       tmux
       tree
       vim
       watch
       wget
-      yarn
       zathura
       zlib
     ];
@@ -108,6 +99,16 @@ in
       trusted-users = [
         username
       ];
+    };
+
+    gc = {
+      automatic = true;
+      interval = {
+        Weekday = 0;
+        Hour = 0;
+        Minute = 0;
+      };
+      options = "--delete-older-than 60d";
     };
   };
 
